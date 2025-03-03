@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vless",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-24",
+  "routes": [{ "pattern": "<DOMAIN>", "custom_domain": true }],
+  "vars": {
+    "UUID": "<UUID>",
+    "PROXY_IP": "<PROXY_IP>"
+  }
+}
