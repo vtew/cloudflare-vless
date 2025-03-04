@@ -1,5 +1,7 @@
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - src/index.ts
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -7,7 +9,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
+          node-version: 'lts/*'
       - run: npm install
       - run: npx tsc
       - uses: actions/checkout@v4
