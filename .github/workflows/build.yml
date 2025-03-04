@@ -15,7 +15,7 @@ jobs:
           ref: pages
           path: dist
       - run: |
-          mv src/index.js dist
+          mv src/index.js dist/_worker.js
           cd dist
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
