@@ -21,4 +21,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add _worker.js
           git commit -m "Update _worker.js"
-          git push origin worker
+          git push origin pages
