@@ -12,11 +12,11 @@ jobs:
       - run: npx tsc
       - uses: actions/checkout@v4
         with:
-          ref: worker
-          path: worker
+          ref: pages
+          path: dist
       - run: |
-          mv src/index.js worker
-          cd worker
+          mv src/index.js dist
+          cd dist
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add _worker.js
