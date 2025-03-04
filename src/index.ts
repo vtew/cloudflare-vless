@@ -21,8 +21,8 @@ async function handleVLESS(
   server: WebSocket
 ) {
   const readableStream = handleWebSocket(request, server);
-  let ref: Ref<Socket> = { value: null };
-  for await (let chunk0 of readableStream) {
+  const ref: Ref<Socket> = { value: null };
+  for await (const chunk0 of readableStream) {
     if (!ref.value) {
       const { version, isUDP, port, hostname, byteOffset } = handleHeader(
         chunk0,
@@ -48,14 +48,10 @@ function handleWebSocket(request: Request, webSocket: WebSocket) {
   webSocket.accept();
   return new ReadableStream<ArrayBuffer>({
     start(controller) {
-      try {
-        const earlyData = base64ToArrayBuffer(
-          request.headers.get("Sec-WebSocket-Protocol")
-        );
-        earlyData && controller.enqueue(earlyData);
-      } catch (e) {
-        controller.error(e);
-      }
+      const earlyData = base64ToArrayBuffer(
+        request.headers.get("Sec-WebSocket-Protocol")
+      );
+      earlyData && controller.enqueue(earlyData);
       webSocket.addEventListener("message", (event) => {
         controller.enqueue(event.data as ArrayBuffer);
       });
@@ -137,12 +133,11 @@ async function handleSocket(
   hosts: { hostname: string; port: number }[],
   ref: Ref<Socket>
 ) {
-  let socket = connect(hosts[0]);
-  await writeSocket(socket, chunk);
-  ref.value = socket;
+  ref.value = connect(hosts[0]);
+  await writeSocket(ref.value, chunk);
   let sent = false;
   let received = false;
-  await socket.readable.pipeTo(
+  await ref.value.readable.pipeTo(
     new WritableStream({
       async write(chunk) {
         received = true;
