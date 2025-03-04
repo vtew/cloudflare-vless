@@ -21,4 +21,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add _worker.js
           git commit -m "Update _worker.js"
-          git push origin pages
+          git push https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
